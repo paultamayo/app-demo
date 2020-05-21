@@ -275,7 +275,7 @@
                         <version>${version.war.plugin}</version>
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
-                            <warName>ROOT</warName>
+                            <warName>app-demo</warName>
                         </configuration>
                     </plugin>
                 </plugins>
