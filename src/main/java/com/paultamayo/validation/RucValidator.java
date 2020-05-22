@@ -1,31 +1,40 @@
 package com.paultamayo.validation;
 
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-public class RucValidator implements ConstraintValidator<RucValidation, String> {
+import com.paultamayo.domain.Cliente_;
+import com.paultamayo.exception.DataBaseException;
+import com.paultamayo.service.impl.ClienteService;
 
-	@Override
-	public void initialize(RucValidation constraintAnnotation) {
-
-	}
+public class RucValidator implements ConstraintValidator<RucConstraint, String> {
 
 	@Override
 	public boolean isValid(String numero, ConstraintValidatorContext context) {
 		try {
 			validarInicial(numero, 13);
 			validarCodigoProvincia(numero.substring(0, 2));
-			//validarTercerDigito(String.valueOf(numero.charAt(2)), 3);
 			validarCodigoEstablecimiento(numero.substring(10, 13));
-			//algoritmoModulo11(numero.substring(0, 9), Integer.parseInt(String.valueOf(numero.charAt(9))), 3);
+			validarBase(numero);
 		} catch (Exception e) {
 			return false;
 		}
 
 		return true;
+	}
+
+	private void validarBase(String numero) throws DataBaseException, NamingException {
+		InitialContext context = new InitialContext();
+		ClienteService service = (ClienteService) context.lookup("java:app/app-demo/ClienteService");
+
+		service.findAllByIds(Cliente_.identificador, List.of(numero));
 	}
 
 	protected boolean validarInicial(String numero, int caracteres) throws Exception {
@@ -87,5 +96,4 @@ public class RucValidator implements ConstraintValidator<RucValidation, String> 
 		return true;
 	}
 
-	
 }

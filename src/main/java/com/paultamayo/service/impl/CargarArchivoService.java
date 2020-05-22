@@ -50,14 +50,6 @@ public class CargarArchivoService {
 	public void guardar(List<CuentaTo> cuentasTo, String ejercicio, Long empresaId) throws DataBaseException {
 
 		for (CuentaTo cuentaTo : cuentasTo) {
-			List<Banco> bancos = bancoService.findAllByIds(Banco_.nombre, List.of(cuentaTo.getBanco()));
-			List<Cliente> clientes = clienteService.findAllByIds(Cliente_.identificador,
-					List.of(cuentaTo.getCliente()));
-			List<Moneda> monedas = monedaService.findAllByIds(Moneda_.nombre, List.of(cuentaTo.getMoneda()));
-			List<SeguroCredito> seguros = seguroCreditoService.findAllByIds(SeguroCredito_.nombre,
-					List.of(cuentaTo.getSeguroCredito()));
-			List<Cuenta> cuentas = cuentaService.findAllByIds(Cuenta_.nombre, List.of(cuentaTo.getCuenta()));
-
 			if (!cuentaTo.hasError()) {
 				RegistroError registro = new RegistroError();
 				registro.setBanco(cuentaTo.getBanco());
@@ -84,6 +76,14 @@ public class CargarArchivoService {
 
 				errorService.save(registro);
 			} else {
+				List<Banco> bancos = bancoService.findAllByIds(Banco_.nombre, List.of(cuentaTo.getBanco()));
+				List<Cliente> clientes = clienteService.findAllByIds(Cliente_.identificador,
+						List.of(cuentaTo.getCliente()));
+				List<Moneda> monedas = monedaService.findAllByIds(Moneda_.nombre, List.of(cuentaTo.getMoneda()));
+				List<SeguroCredito> seguros = seguroCreditoService.findAllByIds(SeguroCredito_.nombre,
+						List.of(cuentaTo.getSeguroCredito()));
+				List<Cuenta> cuentas = cuentaService.findAllByIds(Cuenta_.nombre, List.of(cuentaTo.getCuenta()));
+
 				Registro registro = new Registro();
 				registro.setBancoId(bancos.get(0).getId());
 				registro.setClienteId(clientes.get(0).getId());

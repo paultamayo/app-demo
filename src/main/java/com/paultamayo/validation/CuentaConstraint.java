@@ -11,11 +11,11 @@ import javax.validation.Payload;
 
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = RucValidator.class)
+@Constraint(validatedBy = CuentaValidator.class)
 @Documented
-public @interface RucValidation {
+public @interface CuentaConstraint {
 
-	String message() default "No cumple con el digito validador del ruc";
+	String message() default "No se tiene registrado esta cuenta en base de datos";
 
 	Class<?>[] groups() default {};
 

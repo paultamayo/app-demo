@@ -12,20 +12,20 @@
 					<h:outputText value="#{cuenta.id}" />
 				</p:column>
 
-				<p:column headerText="Identificador Bancario" width="200">
-					<h:outputText value="#{cuenta.bancoId}" />
+				<p:column headerText="Banco" width="200">
+					<h:outputText value="#{cuenta.banco.descripcion}" />
 				</p:column>
 
-				<p:column headerText="Identificador Cliente" width="200">
-					<h:outputText value="#{cuenta.clienteId}" />
+				<p:column headerText="Cliente" width="200">
+					<h:outputText value="#{cuenta.cliente.nombre}" />
 				</p:column>
 
-				<p:column headerText="Identificador Moneda" width="200">
-					<h:outputText value="#{cuenta.monedaId}" />
+				<p:column headerText="Moneda" width="200">
+					<h:outputText value="#{cuenta.moneda.nombre}" />
 				</p:column>
 
-				<p:column headerText="Identificador Seguro" width="200">
-					<h:outputText value="#{cuenta.seguroCreditoId}" />
+				<p:column headerText="Seguro de Crédito" width="200">
+					<h:outputText value="#{cuenta.seguroCredito.nombre}" />
 				</p:column>
 
 				<p:column headerText="Monto" width="200">

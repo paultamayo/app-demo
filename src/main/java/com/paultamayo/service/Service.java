@@ -47,7 +47,13 @@ public abstract class Service<K, T> {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public <X> List<T> findAllByIds(SingularAttribute<T, X> attribute, List<X> ids) throws DataBaseException {
 		try {
-			return getRepository().findAllByIds(attribute, ids);
+			List<T> registros = getRepository().findAllByIds(attribute, ids);
+
+			if (registros.isEmpty()) {
+				throw new DataBaseException("No existe información para este registro");
+			}
+
+			return registros;
 		} catch (Exception ex) {
 			getLogger().error(ex.getMessage(), ex);
 			throw new DataBaseException(ex);

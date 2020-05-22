@@ -12,7 +12,11 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.validator.constraints.Length;
 
-import com.paultamayo.validation.RucValidation;
+import com.paultamayo.validation.BancoConstraint;
+import com.paultamayo.validation.CuentaConstraint;
+import com.paultamayo.validation.MonedaConstraint;
+import com.paultamayo.validation.RucConstraint;
+import com.paultamayo.validation.SeguroCreditoConstraint;
 
 import lombok.Data;
 
@@ -23,17 +27,20 @@ public class CuentaTo {
 
 	@Length(min = 13, max = 13, message = "No cumple con el formato de 13 digitos.")
 	@NotNull(message = "No puede dejar el campo cliente en blanco")
-	@RucValidation
+	@RucConstraint
 	private String cliente;
 
 	@NotNull(message = "No puede dejar el campo seguro de crédito en blanco")
 	@Size(min = 1, message = "No puede tener un campo vacio")
+	@SeguroCreditoConstraint
 	private String seguroCredito;
 
 	@NotNull(message = "No puede dejar el campo banco en blanco")
 	@Size(min = 1, message = "No puede tener un campo vacio")
+	@BancoConstraint
 	private String banco;
 
+	@CuentaConstraint
 	@NotNull(message = "No puede dejar el campo cuenta en blanco")
 	@Size(min = 1, message = "No puede tener un campo vacio")
 	private String cuenta;
@@ -49,6 +56,7 @@ public class CuentaTo {
 
 	@NotNull(message = "No puede dejar el campo moneda vacio")
 	@Size(min = 1, message = "No puede tener un campo vacio")
+	@MonedaConstraint
 	private String moneda;
 
 	@NotNull(message = "No puede dejar el campo fecha cobro vacio")

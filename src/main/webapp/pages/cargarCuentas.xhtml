@@ -78,7 +78,7 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton value="Guardar Archivo" action="#{cargarArchivoController.guardar}" update="messages registroPanel panelCarga" />
+				<p:commandButton value="Guardar Archivo" action="#{cargarArchivoController.guardar}" update="messages registroPanel panelCarga" rendered="#{not empty cargarArchivoController.cuentas}" />
 			</p:panel>
 		</h:form>
 	</ui:define>
