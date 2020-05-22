@@ -2,6 +2,7 @@ package com.paultamayo.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,26 @@ public class ValidacionesUtil {
 				String error = "Campo=" + v.getPropertyPath().toString().toUpperCase() + ": " + v.getMessage() + ".";
 				cuenta.addErrores(error);
 			});
+		}
+
+		if (cuenta.hasError()) {
+			if (cuenta.getFechaVence().isBefore(cuenta.getFechaCobro())) {
+				String error = "Campo= FECHAVENCE: No puede ser la fecha vence menor a la fecha de cobro.";
+
+				cuenta.addErrores(error);
+			}
+
+			if (cuenta.getFechaCobro().isBefore(LocalDate.now())) {
+				String error = "Campo= FECHACOBRO: No puede ser la fecha cobro menor a la actual.";
+
+				cuenta.addErrores(error);
+			}
+
+			if (cuenta.getFechaVence().isBefore(LocalDate.now())) {
+				String error = "Campo= FECHAVENCE: No puede ser la fecha vence menor a la actual.";
+
+				cuenta.addErrores(error);
+			}
 		}
 
 	}
