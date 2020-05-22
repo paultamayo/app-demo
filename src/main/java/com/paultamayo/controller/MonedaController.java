@@ -11,13 +11,14 @@ import javax.inject.Named;
 import com.paultamayo.domain.Moneda;
 import com.paultamayo.exception.DataBaseException;
 import com.paultamayo.service.impl.MonedaService;
+import com.paultamayo.to.CuentaTo;
 
 import lombok.extern.jbosslog.JBossLog;
 
 @JBossLog
 @Named
 @ViewScoped
-public class MonedaController implements Serializable {
+public class MonedaController extends ValidarArchivoController implements Serializable {
 
 	private static final long serialVersionUID = -4761834076178132671L;
 
@@ -35,6 +36,13 @@ public class MonedaController implements Serializable {
 	}
 
 	public String getHelloWorld() {
+		CuentaTo to = new CuentaTo();
+		to.setBanco("qwe");
+
+		validacionEstatica(to);
+
+		log.error(to.getErrores());
+
 		return "Hola Mundo";
 	}
 
