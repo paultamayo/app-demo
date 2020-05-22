@@ -5,10 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.validator.constraints.Length;
 
 import com.paultamayo.validation.RucValidation;
@@ -18,37 +19,57 @@ import lombok.Data;
 @Data
 public class CuentaTo {
 
-	private Long registro;
+	private int registro;
 
 	@Length(min = 13, max = 13, message = "No cumple con el formato de 13 digitos.")
-	@NotBlank(message = "No puede dejar el campo cliente en blanco")
+	@NotNull(message = "No puede dejar el campo cliente en blanco")
 	@RucValidation
 	private String cliente;
 
-	@NotBlank(message = "No puede dejar el campo seguro de crédito en blanco")
+	@NotNull(message = "No puede dejar el campo seguro de crédito en blanco")
+	@Size(min = 1, message = "No puede tener un campo vacio")
 	private String seguroCredito;
 
-	@NotBlank(message = "No puede dejar el campo banco en blanco")
+	@NotNull(message = "No puede dejar el campo banco en blanco")
+	@Size(min = 1, message = "No puede tener un campo vacio")
 	private String banco;
 
-	@NotBlank(message = "No puede dejar el campo cuenta en blanco")
+	@NotNull(message = "No puede dejar el campo cuenta en blanco")
+	@Size(min = 1, message = "No puede tener un campo vacio")
 	private String cuenta;
 
-	@NotBlank(message = "No puede dejar el campo numero cheque en blanco")
+	@NotNull(message = "No puede dejar el campo numero cheque en blanco")
+	@Size(min = 1, message = "No puede tener un campo vacio")
 	private String numeroCheque;
 
 	@NotNull(message = "No puede dejar el campo monto vacio")
-	private BigDecimal monto;
+	@Pattern(message = "No cumple con el formato adecuado.", regexp = "\\d+(\\.\\d{1,2})")
+	@Size(min = 1, message = "No puede tener un campo vacio")
+	private String montoString;
 
-	@Past(message = "No puede ser menor a la fecha actual")
+	@NotNull(message = "No puede dejar el campo moneda vacio")
+	@Size(min = 1, message = "No puede tener un campo vacio")
+	private String moneda;
+
 	@NotNull(message = "No puede dejar el campo fecha cobro vacio")
-	private LocalDate fechaCobro;
+	@Pattern(regexp = "^\\d{1,2}/\\d{1,2}/\\d{4}$", message = "No cumple el formato de cobro Ejemplo: dd/MM/yyyy")
+	private String fechaCobroString;
 
-	@Past(message = "No puede ser menor a la fecha actual")
 	@NotNull(message = "No puede dejar el campo fecha vence vacio")
-	private LocalDate fechaVence;
+	@Pattern(regexp = "^\\d{1,2}/\\d{1,2}/\\d{4}$", message = "No cumple el formato vence Ejemplo: dd/MM/yyyy")
+	private String fechaVenceString;
 
 	private List<String> errores;
+
+	public LocalDate convertir(String formato) {
+		String[] fecha = formato.split("/");
+
+		int year = NumberUtils.createInteger(fecha[2]);
+		int month = NumberUtils.createInteger(fecha[1]);
+		int dayOfMonth = NumberUtils.createInteger(fecha[0]);
+
+		return LocalDate.of(year, month, dayOfMonth);
+	}
 
 	public CuentaTo() {
 		this.errores = new ArrayList<>();
@@ -56,6 +77,22 @@ public class CuentaTo {
 
 	public void addErrores(String error) {
 		errores.add(error);
+	}
+
+	public boolean hasError() {
+		return errores.isEmpty();
+	}
+
+	public LocalDate getFechaCobro() {
+		return convertir(fechaCobroString);
+	}
+
+	public LocalDate getFechaVence() {
+		return convertir(fechaVenceString);
+	}
+
+	public BigDecimal getMonto() {
+		return new BigDecimal(montoString);
 	}
 
 }

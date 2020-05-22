@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/admin.xhtml">
+	<ui:define name="title">Cargar Archivo</ui:define>
+	<ui:define name="top">Pagina Principal</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:messages id="messages" />
+
+			<p:dataTable var="seguro" value="#{administracionSeguroCredito.seguros}" reflow="true">
+				<p:column headerText="Identificador">
+					<h:outputText value="#{seguro.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{seguro.nombre}" />
+				</p:column>
+
+				<p:column headerText="Descripción">
+					<h:outputText value="#{seguro.descripcion}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

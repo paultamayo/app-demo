@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "moneda")
+@Table(name = "seguro_credito")
 public class SeguroCredito implements Serializable {
 
 	private static final long serialVersionUID = 1629091827160094483L;

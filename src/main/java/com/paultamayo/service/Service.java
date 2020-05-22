@@ -45,7 +45,7 @@ public abstract class Service<K, T> {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public <X> List<T> findAllByIds(SingularAttribute<T, X> attribute, List<K> ids) throws DataBaseException {
+	public <X> List<T> findAllByIds(SingularAttribute<T, X> attribute, List<X> ids) throws DataBaseException {
 		try {
 			return getRepository().findAllByIds(attribute, ids);
 		} catch (Exception ex) {

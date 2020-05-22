@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:adm="http://xmlns.jcp.org/jsf/composite/components">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:adm="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
 	<meta charset="utf-8" />
@@ -29,15 +30,16 @@
 			<hr class="sidebar-divider" />
 			<!--  -->
 			<div class="sidebar-heading">Archivo Excel</div>
-			<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-1"
-				aria-expanded="true" aria-controls="collapse-1"> <i class="fa fa-fw fa-cog"></i> <span>Componente 1</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true"
+				aria-controls="collapse-1"> <i class="fa fa-fw fa-cog"></i> <span>Componente 1</span>
 			</a>
 				<div id="collapse-1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Menú:</h6>
-						<a class="collapse-item" href="/pages/opcion1.xhtml">Opción 1</a>
-						<a class="collapse-item" href="/pages/opcion2.xhtml">Opción 2</a> 
-						<a class="collapse-item" href="/pages/opcion3.xhtml">Opción 3</a>
+						<a class="collapse-item" href="#{of:getRequestBaseURL()}pages/cargarCuentas.xhtml">Cargar Registros</a> 
+						<a class="collapse-item" href="#{of:getRequestBaseURL()}pages/verRegistros.xhtml">Ver Registros</a>
+						<a class="collapse-item" href="#{of:getRequestBaseURL()}pages/verRegistrosError.xhtml">Ver Registros con Error</a>
+						<a class="collapse-item" href="#{of:getRequestBaseURL()}pages/verSeguros.xhtml">Ver Seguro Crédito</a>  
 					</div>
 				</div></li>
 			<hr class="sidebar-divider" />

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/admin.xhtml">
+	<ui:define name="title">Cargar Archivo</ui:define>
+	<ui:define name="top">Pagina Principal</ui:define>
+	<ui:define name="content">
+		<p:messages id="messages" />
+		<h:form enctype="multipart/form-data">
+			<p:panel header="Carga del archivo">
+				<p:panelGrid id="panelCarga" columns="2">
+					<p:outputLabel value="Sociedad: " />
+					<p:selectOneMenu value="#{cargarArchivoController.empresaId}" required="true" filter="true" filterMatchMode="startsWith"
+						requiredMessage="Es necesario seleccionar una sociedad">
+						<f:selectItem itemLabel="Seleccione una opción: " itemValue="" />
+						<f:selectItems value="#{cargarArchivoController.empresasSelectItems}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Ejercicio: " />
+					<p:inputText value="#{cargarArchivoController.ejercicio}" />
+
+					<p:outputLabel value="Seleccione el archivo: " />
+					<p:fileUpload listener="#{cargarArchivoController.handleFileUpload}" mode="advanced" dragDropSupport="false" update="registroPanel messages"
+						sizeLimit="100000" fileLimit="10" allowTypes="/(\.|\/)(xls|xlsx)$/" />
+				</p:panelGrid>
+			</p:panel>
+			<hr />
+			<p:panel id="registroPanel" header="Visualización de Información">
+				<p:dataTable id="registrosDataTable" var="registro" value="#{cargarArchivoController.cuentas}" reflow="true"
+					rendered="#{not empty cargarArchivoController.cuentas}">
+					<p:column headerText="# Fila" width="50">
+						<h:outputText value="#{registro.registro}" />
+					</p:column>
+
+					<p:column headerText="Cliente" width="200">
+						<h:outputText value="#{registro.cliente}" />
+					</p:column>
+
+					<p:column headerText="Seguro Crédito" width="150">
+						<h:outputText value="#{registro.seguroCredito}" />
+					</p:column>
+
+					<p:column headerText="Banco" width="200">
+						<h:outputText value="#{registro.banco}" />
+					</p:column>
+
+					<p:column headerText="Cuenta" width="200">
+						<h:outputText value="#{registro.cuenta}" />
+					</p:column>
+
+					<p:column headerText="Numero Cheque" width="200">
+						<h:outputText value="#{registro.numeroCheque}" />
+					</p:column>
+
+					<p:column headerText="Moneda" width="200">
+						<h:outputText value="#{registro.moneda}" />
+					</p:column>
+
+					<p:column headerText="Monto" width="200">
+						<h:outputText value="#{registro.montoString}">
+							<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Fecha Cobro" width="200">
+						<h:outputText value="#{registro.fechaCobroString}" />
+					</p:column>
+
+					<p:column headerText="Fecha Vence" width="200">
+						<h:outputText value="#{registro.fechaVenceString}" />
+					</p:column>
+
+					<p:column headerText="Errores" width="300">
+						<p:dataList value="#{registro.errores}" var="error" type="ordered" rendered="#{not empty registro.errores}">
+						#{error}						
+						</p:dataList>
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton value="Guardar Archivo" action="#{cargarArchivoController.guardar}" update="messages registroPanel panelCarga" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

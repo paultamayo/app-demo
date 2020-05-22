@@ -44,7 +44,7 @@ public abstract class Repository<K, T> {
 		return getEntityManager().createQuery(criteria).getResultList();
 	}
 
-	public <X> List<T> findAllByIds(SingularAttribute<T, X> attribute, List<K> ids) {
+	public <X> List<T> findAllByIds(SingularAttribute<T, X> attribute, List<X> ids) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 
 		CriteriaQuery<T> criteria = builder.createQuery(getEntityClass());

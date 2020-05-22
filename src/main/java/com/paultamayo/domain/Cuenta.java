@@ -1,10 +1,7 @@
 package com.paultamayo.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,27 +21,7 @@ public class Cuenta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "BANCO_ID")
-	private Long bancoId;
+	private String nombre;
 
-	@Column(name = "CLIENTE_ID")
-	private Long clienteId;
-
-	@Column(name = "SEGURO_CREDITO_ID")
-	private Long seguroCreditoId;
-
-	@Column(name = "MONEDA_ID")
-	private Long monedaId;
-
-	@Column(name = "NUMERO_CHEQUE")
-	private String numeroCheque;
-
-	@Column(name = "FECHA_COBRO")
-	private LocalDate fechaCobro;
-
-	@Column(name = "FECHA_VENCE")
-	private LocalDate fechaVence;
-
-	private BigDecimal monto;
-
+	private String descripcion;
 }

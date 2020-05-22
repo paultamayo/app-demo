@@ -18,9 +18,9 @@ public class RucValidator implements ConstraintValidator<RucValidation, String> 
 		try {
 			validarInicial(numero, 13);
 			validarCodigoProvincia(numero.substring(0, 2));
-			validarTercerDigito(String.valueOf(numero.charAt(2)), 3);
+			//validarTercerDigito(String.valueOf(numero.charAt(2)), 3);
 			validarCodigoEstablecimiento(numero.substring(10, 13));
-			algoritmoModulo11(numero.substring(0, 9), Integer.parseInt(String.valueOf(numero.charAt(9))), 3);
+			//algoritmoModulo11(numero.substring(0, 9), Integer.parseInt(String.valueOf(numero.charAt(9))), 3);
 		} catch (Exception e) {
 			return false;
 		}
@@ -87,59 +87,5 @@ public class RucValidator implements ConstraintValidator<RucValidation, String> 
 		return true;
 	}
 
-	protected boolean algoritmoModulo11(String digitosIniciales, int digitoVerificador, Integer tipo) throws Exception {
-		Integer[] arrayCoeficientes = null;
-
-		switch (tipo) {
-
-		case 3:
-			arrayCoeficientes = new Integer[] { 4, 3, 2, 7, 6, 5, 4, 3, 2 };
-			break;
-		case 4:
-			arrayCoeficientes = new Integer[] { 3, 2, 7, 6, 5, 4, 3, 2 };
-			break;
-		default:
-			throw new Exception("Tipo de Identificacion no existe.");
-		}
-
-		Integer[] digitosInicialesTMP = new Integer[digitosIniciales.length()];
-		int indice = 0;
-		for (char valorPosicion : digitosIniciales.toCharArray()) {
-			digitosInicialesTMP[indice] = NumberUtils.createInteger(String.valueOf(valorPosicion));
-			indice++;
-		}
-
-		int total = 0;
-		int key = 0;
-		for (Integer valorPosicion : digitosInicialesTMP) {
-			if (key < arrayCoeficientes.length) {
-				valorPosicion = (digitosInicialesTMP[key] * arrayCoeficientes[key]);
-
-				if (valorPosicion >= 10) {
-					char[] valorPosicionSplit = String.valueOf(valorPosicion).toCharArray();
-					valorPosicion = (Integer.parseInt(String.valueOf(valorPosicionSplit[0])))
-							+ (Integer.parseInt(String.valueOf(valorPosicionSplit[1])));
-					System.out.println(valorPosicion);
-				}
-				total = total + valorPosicion;
-			}
-
-			key++;
-		}
-
-		int residuo = total % 11;
-		int resultado;
-
-		if (residuo == 0) {
-			resultado = 0;
-		} else {
-			resultado = (11 - residuo);
-		}
-
-		if (resultado != digitoVerificador) {
-			throw new Exception("Dígitos iniciales no validan contra Dígito Idenficador");
-		}
-
-		return true;
-	}
+	
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/admin.xhtml">
+	<ui:define name="title">Cargar Archivo</ui:define>
+	<ui:define name="top">Pagina Principal</ui:define>
+	<ui:define name="content">
+		<p:panel header="Listado de Cargas">
+			<p:dataTable var="cuenta" value="#{visualizacionRegistrosController.cuentas}" reflow="true">
+				<p:column headerText="Registro" width="50">
+					<h:outputText value="#{cuenta.id}" />
+				</p:column>
+
+				<p:column headerText="Identificador Bancario" width="200">
+					<h:outputText value="#{cuenta.bancoId}" />
+				</p:column>
+
+				<p:column headerText="Identificador Cliente" width="200">
+					<h:outputText value="#{cuenta.clienteId}" />
+				</p:column>
+
+				<p:column headerText="Identificador Moneda" width="200">
+					<h:outputText value="#{cuenta.monedaId}" />
+				</p:column>
+
+				<p:column headerText="Identificador Seguro" width="200">
+					<h:outputText value="#{cuenta.seguroCreditoId}" />
+				</p:column>
+
+				<p:column headerText="Monto" width="200">
+					<h:outputText value="#{cuenta.monto}">
+						<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha Cobro" width="200">
+					<p:datePicker value="#{cuenta.fechaCobro}" pattern="dd/MM/yyyy" disabled="true" />
+				</p:column>
+
+				<p:column headerText="Fecha Vence" width="200">
+					<p:datePicker value="#{cuenta.fechaVence}"  pattern="dd/MM/yyyy" disabled="true" />
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>
