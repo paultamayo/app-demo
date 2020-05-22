@@ -37,7 +37,7 @@ public class Cuenta implements Serializable {
 	private Long monedaId;
 
 	@Column(name = "NUMERO_CHEQUE")
-	private Long numeroCheque;
+	private String numeroCheque;
 
 	@Column(name = "FECHA_COBRO")
 	private LocalDate fechaCobro;
