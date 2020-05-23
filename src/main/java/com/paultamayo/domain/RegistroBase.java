@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Data;
@@ -19,6 +21,10 @@ public abstract class RegistroBase implements Serializable {
 
 	@Column(name = "EMRESA_ID")
 	private Long empresaId;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id", name = "EMRESA_ID", updatable = false, insertable = false)
+	private Empresa empresa;
 
 	private String ejercicio;
 
