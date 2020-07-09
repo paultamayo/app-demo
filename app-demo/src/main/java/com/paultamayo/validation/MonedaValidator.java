@@ -24,4 +24,8 @@ public class MonedaValidator implements ConstraintValidator<MonedaConstraint, St
 
 		return true;
 	}
+
+	@Override
+	public void initialize(MonedaConstraint constraintAnnotation) {
+	}
 }

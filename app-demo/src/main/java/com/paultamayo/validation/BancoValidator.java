@@ -24,4 +24,8 @@ public class BancoValidator implements ConstraintValidator<BancoConstraint, Stri
 
 		return true;
 	}
+
+	@Override
+	public void initialize(BancoConstraint constraintAnnotation) {
+	}
 }

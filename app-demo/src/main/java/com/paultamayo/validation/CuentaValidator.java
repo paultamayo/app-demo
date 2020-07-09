@@ -24,4 +24,8 @@ public class CuentaValidator implements ConstraintValidator<CuentaConstraint, St
 
 		return true;
 	}
+
+	@Override
+	public void initialize(CuentaConstraint constraintAnnotation) {
+	}
 }

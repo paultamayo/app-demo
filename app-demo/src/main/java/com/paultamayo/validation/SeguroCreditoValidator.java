@@ -24,4 +24,8 @@ public class SeguroCreditoValidator implements ConstraintValidator<SeguroCredito
 
 		return true;
 	}
+
+	@Override
+	public void initialize(SeguroCreditoConstraint constraintAnnotation) {
+	}
 }

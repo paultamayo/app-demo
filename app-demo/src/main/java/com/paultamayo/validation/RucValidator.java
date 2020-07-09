@@ -96,4 +96,8 @@ public class RucValidator implements ConstraintValidator<RucConstraint, String> 
 		return true;
 	}
 
+	@Override
+	public void initialize(RucConstraint constraintAnnotation) {
+	}
+
 }
